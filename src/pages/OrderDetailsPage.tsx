@@ -251,7 +251,7 @@ export const OrderDetailsPage = () => {
                     className="flex items-center gap-4 pb-4 border-b border-gray-200 last:border-0"
                   >
                     {/* Product image placeholder */}
-                    <div className="flex-shrink-0 w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">
+                    <div className="shrink-0 w-20 h-20 bg-gray-200 rounded-lg flex items-center justify-center text-2xl">
                       📦
                     </div>
 

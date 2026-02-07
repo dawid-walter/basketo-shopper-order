@@ -167,7 +167,7 @@ export const ContactPage = () => {
               </h3>
               <div className="space-y-3">
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <div className="shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-blue-600"
                       fill="none"
@@ -193,7 +193,7 @@ export const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                  <div className="shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-green-600"
                       fill="none"
@@ -219,7 +219,7 @@ export const ContactPage = () => {
                 </div>
 
                 <div className="flex items-start gap-3">
-                  <div className="flex-shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
+                  <div className="shrink-0 w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center">
                     <svg
                       className="w-4 h-4 text-purple-600"
                       fill="none"
