@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
 import { OrdersPage } from './pages/OrdersPage';
+import { OrderDetailsPage } from './pages/OrderDetailsPage';
+import { ContactPage } from './pages/ContactPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
@@ -13,6 +15,22 @@ function App() {
           element={
             <ProtectedRoute>
               <OrdersPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/orders/:orderId"
+          element={
+            <ProtectedRoute>
+              <OrderDetailsPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/contact"
+          element={
+            <ProtectedRoute>
+              <ContactPage />
             </ProtectedRoute>
           }
         />

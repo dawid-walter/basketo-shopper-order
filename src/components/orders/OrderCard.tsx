@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import type { OrderDetail } from '../../types';
 import { Card } from '../common/Card';
 import { Badge } from '../common/Badge';
@@ -8,8 +9,17 @@ interface OrderCardProps {
 }
 
 export const OrderCard = ({ order }: OrderCardProps) => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(`/orders/${order.id}`);
+  };
+
   return (
-    <Card className="hover:shadow-lg transition-shadow">
+    <Card
+      className="hover:shadow-lg transition-shadow cursor-pointer"
+      onClick={handleClick}
+    >
       <div className="space-y-4">
         {/* Header */}
         <div className="flex justify-between items-start gap-4">
