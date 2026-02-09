@@ -39,7 +39,7 @@ export interface OrderItem {
   unitPrice: number;
 }
 
-export type OrderStatus = 'CREATED' | 'PAID' | 'SHIPPED' | 'CANCELLED';
+export type OrderStatus = 'CREATED' | 'PAID' | 'PROCESSING' | 'SHIPPED' | 'DELIVERED' | 'CANCELLED';
 
 // Auth types
 export interface AdminLoginRequest {
