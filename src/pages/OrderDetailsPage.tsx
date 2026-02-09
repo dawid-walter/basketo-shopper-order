@@ -1,27 +1,48 @@
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { useOrders } from '../hooks/useOrders';
+import { ordersService } from '../services/orders';
 import { OrderStatusDetails } from '../components/orders/OrderStatusDetails';
 import { Button } from '../components/common/Button';
 import { Card } from '../components/common/Card';
 import { Badge } from '../components/common/Badge';
 import { LoadingSpinner } from '../components/common/LoadingSpinner';
 import { formatCurrency, formatDate } from '../utils/format';
-import type { OrderStatus } from '../types';
+import type { OrderStatus, OrderDetail } from '../types';
 
 export const OrderDetailsPage = () => {
-  const { orderId } = useParams<{ orderId: string }>();
+  const { orderNumber } = useParams<{ orderNumber: string }>();
   const navigate = useNavigate();
   const { userEmail, logout } = useAuth();
-  const { orders, loading, error } = useOrders();
+  const [order, setOrder] = useState<OrderDetail | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    const fetchOrder = async () => {
+      if (!orderNumber) {
+        setError('No order number provided');
+        setLoading(false);
+        return;
+      }
+
+      try {
+        const fetchedOrder = await ordersService.getOrderByNumber(orderNumber);
+        setOrder(fetchedOrder);
+      } catch (err: any) {
+        setError(err.response?.data?.message || 'Failed to load order details');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrder();
+  }, [orderNumber]);
 
   const handleLogout = () => {
     logout();
     navigate('/login');
   };
-
-  // Find the specific order
-  const order = orders.find((o) => o.id === orderId);
 
   // Loading state
   if (loading) {
@@ -159,7 +180,7 @@ export const OrderDetailsPage = () => {
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
               <h2 className="text-3xl font-bold text-gray-900">
-                Order #{order.id}
+                Order {order.orderNumber}
               </h2>
               <p className="text-gray-600 mt-1">
                 Placed on {formatDate(order.createdAt)}
@@ -173,7 +194,7 @@ export const OrderDetailsPage = () => {
         <div className="mb-6">
           <OrderStatusDetails
             status={order.status}
-            trackingNumber={order.status === 'SHIPPED' ? 'TRK' + order.id : undefined}
+            trackingNumber={order.status === 'SHIPPED' ? 'TRK-' + order.orderNumber.replace('ORDER-', '') : undefined}
             deliveryDate={order.status === 'SHIPPED' ? '2026-02-12' : undefined}
           />
         </div>
@@ -319,7 +340,7 @@ export const OrderDetailsPage = () => {
                   <p className="text-xs text-gray-500 uppercase tracking-wide">
                     Email
                   </p>
-                  <p className="text-sm text-gray-900 mt-1">{userEmail}</p>
+                  <p className="text-sm text-gray-900 mt-1">{order.userEmail}</p>
                 </div>
               </div>
             </Card>
@@ -329,13 +350,23 @@ export const OrderDetailsPage = () => {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Shipping Address
               </h3>
-              <div className="space-y-1 text-sm text-gray-700">
-                <p className="font-medium">John Doe</p>
-                <p>123 Main Street</p>
-                <p>Apartment 4B</p>
-                <p>New York, NY 10001</p>
-                <p>United States</p>
-              </div>
+              {order.shippingAddress ? (
+                <div className="space-y-1 text-sm text-gray-700">
+                  <p className="font-medium">
+                    {order.shippingAddress.firstName} {order.shippingAddress.lastName}
+                  </p>
+                  <p>{order.shippingAddress.addressLine}</p>
+                  <p>
+                    {order.shippingAddress.postalCode} {order.shippingAddress.city}
+                  </p>
+                  <p>{order.shippingAddress.country}</p>
+                  <p className="mt-2">
+                    <span className="text-gray-500">Phone:</span> {order.shippingAddress.phone}
+                  </p>
+                </div>
+              ) : (
+                <p className="text-sm text-gray-500">No shipping address provided</p>
+              )}
             </Card>
 
             {/* Payment Method */}

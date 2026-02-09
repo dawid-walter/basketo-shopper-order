@@ -1,6 +1,18 @@
+// Shipping Address
+export interface ShippingAddress {
+  firstName: string;
+  lastName: string;
+  addressLine: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  phone: string;
+}
+
 // Order types
 export interface Order {
   id: string;
+  orderNumber: string;
   userEmail: string;
   totalAmount: number;
   currency: string;
@@ -11,6 +23,9 @@ export interface Order {
 
 export interface OrderDetail {
   id: string;
+  orderNumber: string;
+  userEmail: string;
+  shippingAddress: ShippingAddress | null;
   status: OrderStatus;
   totalAmount: number;
   currency: string;

@@ -21,6 +21,11 @@ export const authService = {
     await api.post('/api/auth/login', payload);
   },
 
+  // Request PIN by order number (sends PIN to email associated with order)
+  requestPinByOrderNumber: async (orderNumber: string): Promise<void> => {
+    await api.post('/api/auth/request-pin-by-order', { orderNumber });
+  },
+
   // Verify PIN and get access token
   verifyPin: async (email: string, pin: string): Promise<VerifyPinResponse> => {
     const payload: VerifyPinRequest = { email, pin };

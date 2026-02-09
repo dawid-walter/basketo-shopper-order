@@ -7,4 +7,10 @@ export const ordersService = {
     const response = await api.get<OrderDetail[]>('/api/orders');
     return response.data;
   },
+
+  // Get order by order number (public endpoint)
+  getOrderByNumber: async (orderNumber: string): Promise<OrderDetail> => {
+    const response = await api.get<OrderDetail>(`/api/orders/by-number/${orderNumber}`);
+    return response.data;
+  },
 };

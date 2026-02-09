@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LoginPage } from './pages/LoginPage';
+import { PinVerificationPage } from './pages/PinVerificationPage';
 import { OrdersPage } from './pages/OrdersPage';
 import { OrderDetailsPage } from './pages/OrderDetailsPage';
 import { ContactPage } from './pages/ContactPage';
@@ -9,7 +10,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        {/* Public routes */}
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/verify-pin" element={<PinVerificationPage />} />
+
+        {/* Protected routes */}
         <Route
           path="/orders"
           element={
@@ -19,7 +24,7 @@ function App() {
           }
         />
         <Route
-          path="/orders/:orderId"
+          path="/order/:orderNumber"
           element={
             <ProtectedRoute>
               <OrderDetailsPage />
@@ -34,8 +39,10 @@ function App() {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Navigate to="/orders" replace />} />
-        <Route path="*" element={<Navigate to="/orders" replace />} />
+
+        {/* Default redirect to login */}
+        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </BrowserRouter>
   );
