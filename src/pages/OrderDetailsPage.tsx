@@ -195,10 +195,9 @@ export const OrderDetailsPage = () => {
           <OrderStatusDetails
             status={order.status}
             trackingNumber={order.status === 'SHIPPED' ? 'TRK-' + order.orderNumber.replace('ORDER-', '') : undefined}
-            deliveryDate={order.status === 'SHIPPED' ? '2026-02-12' : undefined}
+            deliveredDate={order.status === 'DELIVERED' ? '2026-02-12' : undefined}
           />
         </div>
-
         {/* Order Timeline */}
         <Card className="mb-6">
           <h3 className="text-xl font-semibold text-gray-900 mb-6">

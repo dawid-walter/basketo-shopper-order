@@ -7,6 +7,8 @@ export const ORDER_STATUS_INFO = {
     whatNext: 'Once payment is confirmed, we\'ll start processing your order right away.',
     estimatedTime: 'Payment confirmation typically takes a few minutes.',
     color: 'blue',
+    showTracking: false,
+    showFeedback: false,
   },
   PAID: {
     title: 'Payment Confirmed ✓',
@@ -14,6 +16,8 @@ export const ORDER_STATUS_INFO = {
     whatNext: 'Our team is preparing your items for shipment. You\'ll receive an update once your order ships.',
     estimatedTime: 'Processing usually takes 1-2 business days.',
     color: 'green',
+    showTracking: false,
+    showFeedback: false,
   },
   PROCESSING: {
     title: 'Order in Progress 📦',
@@ -21,6 +25,8 @@ export const ORDER_STATUS_INFO = {
     whatNext: 'Once packed, we\'ll hand it off to our shipping carrier and send you tracking information.',
     estimatedTime: 'Most orders are shipped within 1-2 business days.',
     color: 'yellow',
+    showTracking: false,
+    showFeedback: false,
   },
   SHIPPED: {
     title: 'On Its Way! 🚚',
@@ -29,6 +35,7 @@ export const ORDER_STATUS_INFO = {
     estimatedTime: 'Delivery times vary by location and shipping method selected.',
     color: 'blue',
     showTracking: true,
+    showFeedback: false,
   },
   DELIVERED: {
     title: 'Delivered! ✨',
@@ -36,6 +43,7 @@ export const ORDER_STATUS_INFO = {
     whatNext: 'Enjoying your purchase? We\'d love to hear your feedback!',
     estimatedTime: '',
     color: 'green',
+    showTracking: false,
     showFeedback: true,
   },
   CANCELLED: {
@@ -44,6 +52,8 @@ export const ORDER_STATUS_INFO = {
     whatNext: 'Your refund has been processed and should appear in your account within 5-7 business days.',
     estimatedTime: 'Refunds typically take 5-7 business days to appear.',
     color: 'red',
+    showTracking: false,
+    showFeedback: false,
   },
 } as const;
 
