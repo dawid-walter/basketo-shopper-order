@@ -39,6 +39,21 @@ export const authService = {
     return response.data;
   },
 
+  // Verify PIN by order number (doesn't require email)
+  verifyPinByOrderNumber: async (orderNumber: string, pin: string): Promise<VerifyPinResponse> => {
+    const response = await api.post<VerifyPinResponse>('/api/auth/verify-by-order', {
+      orderNumber,
+      pin,
+    });
+
+    if (response.data.success && response.data.accessToken) {
+      localStorage.setItem('userToken', response.data.accessToken);
+      // Email will be extracted from JWT token or fetched from order later
+    }
+
+    return response.data;
+  },
+
   // Logout - clear localStorage
   logout: (): void => {
     localStorage.removeItem('userToken');

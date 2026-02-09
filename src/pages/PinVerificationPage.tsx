@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Card } from '../components/common/Card';
 import { Button } from '../components/common/Button';
 import { authService } from '../services/auth';
-import { ordersService } from '../services/orders';
 
 export const PinVerificationPage = () => {
   const navigate = useNavigate();
@@ -37,11 +36,8 @@ export const PinVerificationPage = () => {
     setError('');
 
     try {
-      // First, get the order to find out the email
-      const order = await ordersService.getOrderByNumber(orderNumber);
-
-      // Verify PIN with the email from the order
-      const response = await authService.verifyPin(order.userEmail, pin);
+      // Verify PIN using order number (backend will find the email)
+      const response = await authService.verifyPinByOrderNumber(orderNumber, pin);
 
       if (response.success) {
         // Navigate to order details page

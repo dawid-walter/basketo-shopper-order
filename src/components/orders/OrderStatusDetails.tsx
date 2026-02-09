@@ -1,4 +1,4 @@
-import { ORDER_STATUS_INFO, OrderStatus } from '../../constants/orderStatuses';
+import { ORDER_STATUS_INFO, type OrderStatus } from '../../constants/orderStatuses';
 
 interface OrderStatusDetailsProps {
   status: OrderStatus;
